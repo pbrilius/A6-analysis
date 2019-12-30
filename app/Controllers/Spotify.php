@@ -1,9 +1,18 @@
 <?php
 
+namespace App\Controllers;
+
 use App\Controllers\BaseController;
 
 class Spotify extends BaseController
 {
+	/**
+	 * Controller helpers
+	 *
+	 * @var array
+	 */
+	protected $helpers = ['url'];
+
 	/**
 	 * Grant user a Spotify access by his consent
 	 *
@@ -17,7 +26,8 @@ class Spotify extends BaseController
 		$session->set('state', $state);
 
 		$data = [
-			'state' => $state,
+			'state'       => $state,
+			'redirectUrl' => site_url('/spotify-access'),
 		];
 		$session->destroy();
 
