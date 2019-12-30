@@ -4,7 +4,7 @@
         window.location='https://accounts.spotify.com/authorize?'
         + 'client_id=<?= getenv('CLIENT_ID'); ?>'
         + 'response_type=token&'
-        + 'redirect_uri=""&'
+        + 'redirect_uri=<?= urlencode($redirectUrl) ?>&'
         + 'state="<?= $state ?>"';
     </script>
 </html>
