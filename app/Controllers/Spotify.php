@@ -25,6 +25,8 @@ class Spotify extends BaseController
 		$state = hash('haval160,4', uniqid('sp'));
 		$session->set('state', $state);
 
+		var_dump(getenv('CLIENT_ID'));
+
 		$data = [
 			'state'       => $state,
 			'redirectUrl' => site_url('/spotify-access'),

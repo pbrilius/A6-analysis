@@ -5,6 +5,6 @@
         + 'client_id=<?= getenv('CLIENT_ID'); ?>'
         + 'response_type=token&'
         + 'redirect_uri=<?= urlencode($redirectUrl) ?>&'
-        + 'state="<?= $state ?>"';
+        + 'state=<?= $state ?>';
     </script>
 </html>
