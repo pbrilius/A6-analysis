@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\Config\View;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
@@ -72,6 +73,7 @@ class Spotify extends BaseController
 		$response = curl_exec($curl);
 
 		curl_close($curl);
-		echo $response;
+
+		return view('json-spotify-access', ['spotifyTrack' => $response], ['cache' => 60]);
 	}
 }
