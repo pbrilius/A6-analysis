@@ -46,5 +46,10 @@ class Spotify extends BaseController
 		]);
 		var_export($response->getStatusCode());
 		var_export($response->getReason());
+
+		$client = \Config\Services::curlrequest([
+			'base_uri' => getenv('spotify.api.url'),
+			'timeout'  => 3,
+		]);
 	}
 }
