@@ -46,51 +46,32 @@ class Spotify extends BaseController
 				'grant_type' => 'client_credentials',
 			],
 		]);
-		var_export($response->getStatusCode());
-		var_export($response->getReason());
-		var_export($response->getBody());
 
 		$accessToken = json_decode($response->getBody())->access_token;
-		var_dump('access token');
-		var_dump($accessToken);
 
-		// $client = \Config\Services::curlrequest([
-		// 	'base_uri' => getenv('spotify.api.url'),
-		// 	'timeout'  => 3,
-		// ]);
-		// var_dump(get_class($client));
-		// var_dump($client->get_case);
-		var_dump(getenv('TRACK_SPOTIFY_ID'));
 		$client = \Config\Services::curlrequest([
 			'base_uri' => getenv('spotify.api.url'),
 		]);
-		var_dump('test msg11');
-		var_dump(getenv('spotify.api.url') . 'tracks/' . getenv('TRACK_SPOTIFY_ID'));
-		try
-		{
-			$response = $client->get('tracks/' . getenv('TRACK_SPOTIFY_ID'), [
-				'headers' => [
-					'Authorization' => 'Bearer ' . $accessToken,
-				],
-				'debug'   => true,
-			]);
-		}
-		catch (RequestException $e)
-		{
-		}
-		catch (ClientException $e)
-		{
-			echo Psr7\str($e->getRequest());
-			echo Psr7\str($e->getResponse());
-		}
-		catch (\Exception $e)
-		{
-			var_dump($client->getHeaders());
-			var_dump('test msg');
-			var_export($response->getStatusCode());
-			var_export($response->getReason());
-			var_export($response->getBody());
-			var_dump($e->getMessage());
-		}
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, [
+							  CURLOPT_URL            => getenv('spotify.api.url') . 'tracks/' . getenv('TRACK_SPOTIFY_ID'),
+							  CURLOPT_RETURNTRANSFER => true,
+							  CURLOPT_ENCODING       => '',
+							  CURLOPT_MAXREDIRS      => 10,
+							  CURLOPT_TIMEOUT        => 0,
+							  CURLOPT_FOLLOWLOCATION => true,
+							  CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+							  CURLOPT_CUSTOMREQUEST  => 'GET',
+							  CURLOPT_HTTPHEADER     => [
+				"Authorization: Bearer $accessToken"
+							  ],
+						  ]);
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		echo $response;
 	}
 }
