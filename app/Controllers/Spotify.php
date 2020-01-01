@@ -3,15 +3,30 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use GuzzleHttp\Client;
 
 class Spotify extends BaseController
 {
+
 	/**
-	 * Controller helpers
+	 * Undocumented variable
 	 *
-	 * @var array
+	 * @var Client
 	 */
-	protected $helpers = ['url'];
+	private $client;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$options      = [
+			'base_uri' => getenv('spotify.grant.url'),
+			'timeout'  => 3,
+		];
+		$this->client = \Config\Services::curlrequest($options);
+	}
 
 	/**
 	 * Grant user a Spotify access by his consent
@@ -20,17 +35,5 @@ class Spotify extends BaseController
 	 */
 	public function grant()
 	{
-		$session = session();
-
-		$state = hash('haval160,4', uniqid('sp'));
-		$session->set('state', $state);
-
-		$data = [
-			'state'       => $state,
-			'redirectUrl' => site_url('/spotify-access'),
-		];
-		$session->destroy();
-
-		return view('spotify_implicit_grant', $data, ['cache' => 2]);
 	}
 }
