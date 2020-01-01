@@ -34,5 +34,15 @@ class Spotify extends BaseController
 	 */
 	public function grant()
 	{
+		$client   = $this->client;
+		$response = $client->request('POST', '', [
+			'auth'        => [
+				getenv('CLIENT_ID'),
+				getenv('CLIENT_SECRET'),
+			],
+			'form_params' => [
+				'grant_type' => 'client_credentials',
+			],
+		]);
 	}
 }
