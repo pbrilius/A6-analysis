@@ -44,5 +44,7 @@ class Spotify extends BaseController
 				'grant_type' => 'client_credentials',
 			],
 		]);
+		var_export($response->getStatusCode());
+		var_export($response->getReason());
 	}
 }
