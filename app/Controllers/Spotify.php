@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 
 class Spotify extends BaseController
 {
@@ -46,10 +48,49 @@ class Spotify extends BaseController
 		]);
 		var_export($response->getStatusCode());
 		var_export($response->getReason());
+		var_export($response->getBody());
 
+		$accessToken = json_decode($response->getBody())->access_token;
+		var_dump('access token');
+		var_dump($accessToken);
+
+		// $client = \Config\Services::curlrequest([
+		// 	'base_uri' => getenv('spotify.api.url'),
+		// 	'timeout'  => 3,
+		// ]);
+		// var_dump(get_class($client));
+		// var_dump($client->get_case);
+		var_dump(getenv('TRACK_SPOTIFY_ID'));
 		$client = \Config\Services::curlrequest([
 			'base_uri' => getenv('spotify.api.url'),
-			'timeout'  => 3,
 		]);
+		var_dump('test msg11');
+		var_dump(getenv('spotify.api.url') . 'tracks/' . getenv('TRACK_SPOTIFY_ID'));
+		try
+		{
+			$response = $client->get('tracks/' . getenv('TRACK_SPOTIFY_ID'), [
+				'headers' => [
+					'Authorization' => 'Bearer ' . $accessToken,
+				],
+				'debug'   => true,
+			]);
+		}
+		catch (RequestException $e)
+		{
+		}
+		catch (ClientException $e)
+		{
+			echo Psr7\str($e->getRequest());
+			echo Psr7\str($e->getResponse());
+		}
+		catch (\Exception $e)
+		{
+			var_dump($client->getHeaders());
+			var_dump('test msg');
+			var_export($response->getStatusCode());
+			var_export($response->getReason());
+			var_export($response->getBody());
+			var_dump($e->getMessage());
+		}
 	}
 }
