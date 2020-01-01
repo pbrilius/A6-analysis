@@ -20,7 +20,6 @@ class Spotify extends BaseController
 	 */
 	public function __construct()
 	{
-		parent::__construct();
 		$options      = [
 			'base_uri' => getenv('spotify.grant.url'),
 			'timeout'  => 3,
