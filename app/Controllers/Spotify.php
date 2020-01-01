@@ -3,15 +3,32 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\Config\View;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 
 class Spotify extends BaseController
 {
+
 	/**
-	 * Controller helpers
+	 * Undocumented variable
 	 *
-	 * @var array
+	 * @var Client
 	 */
-	protected $helpers = ['url'];
+	private $client;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		$options      = [
+			'base_uri' => getenv('spotify.grant.url'),
+			'timeout'  => 3,
+		];
+		$this->client = \Config\Services::curlrequest($options);
+	}
 
 	/**
 	 * Grant user a Spotify access by his consent
@@ -20,17 +37,43 @@ class Spotify extends BaseController
 	 */
 	public function grant()
 	{
-		$session = session();
+		$client   = $this->client;
+		$response = $client->request('POST', '', [
+			'auth'        => [
+				getenv('CLIENT_ID'),
+				getenv('CLIENT_SECRET'),
+			],
+			'form_params' => [
+				'grant_type' => 'client_credentials',
+			],
+		]);
 
-		$state = hash('haval160,4', uniqid('sp'));
-		$session->set('state', $state);
+		$accessToken = json_decode($response->getBody())->access_token;
 
-		$data = [
-			'state'       => $state,
-			'redirectUrl' => site_url('/spotify-access'),
-		];
-		$session->destroy();
+		$client = \Config\Services::curlrequest([
+			'base_uri' => getenv('spotify.api.url'),
+		]);
 
-		return view('spotify_implicit_grant', $data, ['cache' => 2]);
+		$curl = curl_init();
+
+		curl_setopt_array($curl, [
+							  CURLOPT_URL            => getenv('spotify.api.url') . 'tracks/' . getenv('TRACK_SPOTIFY_ID'),
+							  CURLOPT_RETURNTRANSFER => true,
+							  CURLOPT_ENCODING       => '',
+							  CURLOPT_MAXREDIRS      => 10,
+							  CURLOPT_TIMEOUT        => 0,
+							  CURLOPT_FOLLOWLOCATION => true,
+							  CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+							  CURLOPT_CUSTOMREQUEST  => 'GET',
+							  CURLOPT_HTTPHEADER     => [
+				"Authorization: Bearer $accessToken"
+							  ],
+						  ]);
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+
+		return view('json-spotify-access', ['spotifyTrack' => $response], ['cache' => 60]);
 	}
 }

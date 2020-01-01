@@ -17,10 +17,10 @@ class Filters extends BaseConfig
 	public $globals = [
 		'before' => [
 			'honeypot',
-			'csrf',
+			// 'csrf',
 		],
 		'after'  => [
-			'toolbar',
+			// 'toolbar',
 			'honeypot',
 		],
 	];
@@ -31,7 +31,7 @@ class Filters extends BaseConfig
 	public $methods = [
 		'post' => [
 			'throttle',
-			'CSRF',
+			// 'CSRF',
 		],
 	];
 
