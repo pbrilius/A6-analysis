@@ -3,28 +3,38 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Entities\Token;
+use App\Models\TokenModel;
 use GuzzleHttp\Client;
 
 class Spotify extends BaseController
 {
 
 	/**
-	 * Undocumented variable
+	 * CI HTTP client
 	 *
 	 * @var Client
 	 */
 	private $client;
 
 	/**
+	 * Token model
+	 *
+	 * @var TokenModel
+	 */
+	private $tokenModel;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
-		$options      = [
+		$options          = [
 			'base_uri' => getenv('spotify.grant.url'),
 			'timeout'  => 3,
 		];
-		$this->client = \Config\Services::curlrequest($options);
+		$this->client     = \Config\Services::curlrequest($options);
+		$this->tokenModel = new TokenModel();
 	}
 
 	/**
@@ -47,30 +57,20 @@ class Spotify extends BaseController
 
 		$accessToken = json_decode($response->getBody())->access_token;
 
-		$client = \Config\Services::curlrequest([
-			'base_uri' => getenv('spotify.api.url'),
-		]);
+		if ($accessToken)
+		{
+			log_message('info', 'Access token granted');
+		}
+		else
+		{
+			log_message('notice', 'Access token denied');
+		}
 
-		$curl = curl_init();
+		$token         = new Token();
+		$token->access = $accessToken;
 
-		curl_setopt_array($curl, [
-							  CURLOPT_URL            => getenv('spotify.api.url') . 'tracks/' . getenv('TRACK_SPOTIFY_ID'),
-							  CURLOPT_RETURNTRANSFER => true,
-							  CURLOPT_ENCODING       => '',
-							  CURLOPT_MAXREDIRS      => 10,
-							  CURLOPT_TIMEOUT        => 0,
-							  CURLOPT_FOLLOWLOCATION => true,
-							  CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-							  CURLOPT_CUSTOMREQUEST  => 'GET',
-							  CURLOPT_HTTPHEADER     => [
-				"Authorization: Bearer $accessToken"
-							  ],
-						  ]);
+		$this->tokenModel->save($token);
 
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-
-		return view('json-spotify-access', ['spotifyTrack' => $response], ['cache' => 60]);
+		$this->response->setStatusCode(201);
 	}
 }

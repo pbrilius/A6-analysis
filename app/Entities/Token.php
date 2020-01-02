@@ -3,12 +3,13 @@
 use CodeIgniter\Entity;
 use CodeIgniter\I18n\Time;
 
-class User extends Entity
+class Token extends Entity
 {
 	protected $attributes = [
 		'id'         => null,
 		'token'      => null,
 		'created_at' => null,
+		'updated_at' => null,
 		'deleted_at' => null,
 	];
 
@@ -32,6 +33,24 @@ class User extends Entity
 		$this->attributes['created_at']->setTimezone($timezone);
 
 		return $this->attributes['created_at']->format($format);
+	}
+
+	public function setUpdatedAt(string $dateString)
+	{
+		$this->attributes['updated_at'] = new Time($dateString, 'UTC');
+
+		return $this;
+	}
+
+	public function getUpdatedAt(string $format = 'Y-m-d H:i:s')
+	{
+		$this->attributes['updated_at'] = $this->mutateDate($this->attributes['updated_at']);
+
+		$timezone = $this->timezone ?? app_timezone();
+
+		$this->attributes['updated_at']->setTimezone($timezone);
+
+		return $this->attributes['updated_at']->format($format);
 	}
 
 	public function setDeletedAt(string $dateString)
