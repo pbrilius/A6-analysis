@@ -6,7 +6,7 @@ use GO\Scheduler;
 $scheduler = new Scheduler();
 
 chdir(__DIR__);
-$scheduler->raw('php spark spotify:grant')->everyMinute();
+$scheduler->raw('php spark spotify:grant')->hourly();
 
 // Let the scheduler execute jobs which are due.
 $scheduler->run();
