@@ -33,7 +33,7 @@ class ControllerTesterTest extends \CIUnitTestCase
 		$logger = new Logger(new LoggerConfig());
 		$result = $this->withURI('http://example.com')
 				->withLogger($logger)
-				->controller(\App\Controllers\NeverHeardOfIt::class)
+				->controller(\A6\Controllers\NeverHeardOfIt::class)
 				->execute('index');
 	}
 
@@ -43,7 +43,7 @@ class ControllerTesterTest extends \CIUnitTestCase
 		$logger = new Logger(new LoggerConfig());
 		$result = $this->withURI('http://example.com')
 				->withLogger($logger)
-				->controller(\App\Controllers\Home::class)
+				->controller(\A6\Controllers\Home::class)
 				->execute('nothere');
 	}
 
@@ -52,7 +52,7 @@ class ControllerTesterTest extends \CIUnitTestCase
 		$logger = new Logger(new LoggerConfig());
 		$result = $this->withURI('http://example.com')
 				->withLogger($logger)
-				->controller(\App\Controllers\Home::class)
+				->controller(\A6\Controllers\Home::class)
 				->execute('index');
 
 		$body = $result->getBody();
@@ -62,7 +62,7 @@ class ControllerTesterTest extends \CIUnitTestCase
 	public function testControllerWithoutLogger()
 	{
 		$result = $this->withURI('http://example.com')
-				->controller(\App\Controllers\Home::class)
+				->controller(\A6\Controllers\Home::class)
 				->execute('index');
 
 		$body = $result->getBody();

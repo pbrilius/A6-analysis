@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace A6\Controllers;
 
-use App\Controllers\BaseController;
-use App\Entities\Token;
-use App\Models\TokenModel;
+use A6\Controllers\BaseController;
+use A6\Entities\Token;
+use A6\Models\TokenModel;
 use GuzzleHttp\Client;
 
 class Spotify extends BaseController

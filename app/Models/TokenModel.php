@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace A6\Models;
 
 use CodeIgniter\Model;
 
@@ -12,7 +12,7 @@ class TokenModel extends Model
 	protected $allowedFields = [
 		'access'
 	];
-	protected $returnType    = 'App\Entities\Token';
+	protected $returnType    = 'A6\Entities\Token';
 	protected $useTimestamps = true;
 
 }

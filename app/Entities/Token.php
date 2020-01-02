@@ -1,4 +1,4 @@
-<?php namespace App\Entities;
+<?php namespace A6\Entities;
 
 use CodeIgniter\Entity;
 use CodeIgniter\I18n\Time;
