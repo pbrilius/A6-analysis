@@ -8,12 +8,13 @@ class SpotifyTest extends \CIUnitTestCase
 
 	public function testGrant()
 	{
-		$result = $this->withURI('http://localhost:8080/spotify-grant')
+		$result = $this->withURI(site_url(['spotify-grant']))
 						->controller(\A6\Controllers\Spotify::class)
 						->execute('grant');
 
 		$this->assertTrue($result->isOK());
 
-		$result->seeElement('pre');
+		$results->dontSeeElement('html');
+		$results->dontSeeElement('pre');
 	}
 }

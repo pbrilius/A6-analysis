@@ -128,5 +128,8 @@ nb-configuration.xml
 # Debugging
 /*.log
 
-# Environment vonfiguration
+# Environment vonfigurationfe
 .env
+
+# PHPUnit cache
+.phpunit.result.cache
