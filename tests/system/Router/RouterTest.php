@@ -36,16 +36,16 @@ class RouterTest extends \CIUnitTestCase
 			'user-setting/show-list'                          => 'User_setting::show_list',
 			'user-setting/(:segment)'                         => 'User_setting::detail/$1',
 			'posts'                                           => 'Blog::posts',
-			'pages'                                           => 'App\Pages::list_all',
+			'pages'                                           => 'A6\Pages::list_all',
 			'posts/(:num)'                                    => 'Blog::show/$1',
 			'posts/(:num)/edit'                               => 'Blog::edit/$1',
 			'books/(:num)/(:alpha)/(:num)'                    => 'Blog::show/$3/$1',
 			'closure/(:num)/(:alpha)'                         => function ($num, $str) {
 				return $num . '-' . $str;
 			},
-			'{locale}/pages'                                  => 'App\Pages::list_all',
-			'Admin/Admins'                                    => 'App\Admin\Admins::list_all',
-			'/some/slash'                                     => 'App\Slash::index',
+			'{locale}/pages'                                  => 'A6\Pages::list_all',
+			'Admin/Admins'                                    => 'A6\Admin\Admins::list_all',
+			'/some/slash'                                     => 'A6\Slash::index',
 			'objects/(:segment)/sort/(:segment)/([A-Z]{3,7})' => 'AdminList::objectsSortCreate/$1/$2/$3',
 		];
 
@@ -104,7 +104,7 @@ class RouterTest extends \CIUnitTestCase
 
 		$router->handle('pages');
 
-		$this->assertEquals('\App\Pages', $router->controllerName());
+		$this->assertEquals('\A6\Pages', $router->controllerName());
 		$this->assertEquals('list_all', $router->methodName());
 	}
 
@@ -235,7 +235,7 @@ class RouterTest extends \CIUnitTestCase
 
 		$router->handle('Admin/Admins');
 
-		$this->assertEquals('\App\Admin\Admins', $router->controllerName());
+		$this->assertEquals('\A6\Admin\Admins', $router->controllerName());
 		$this->assertEquals('list_all', $router->methodName());
 	}
 
@@ -247,7 +247,7 @@ class RouterTest extends \CIUnitTestCase
 
 		$router->handle('some/slash');
 
-		$this->assertEquals('\App\Slash', $router->controllerName());
+		$this->assertEquals('\A6\Slash', $router->controllerName());
 		$this->assertEquals('index', $router->methodName());
 	}
 
@@ -302,7 +302,7 @@ class RouterTest extends \CIUnitTestCase
 		$group = [
 			'api',
 			[
-				'namespace' => 'App\Controllers\Api',
+				'namespace' => 'A6\Controllers\Api',
 				'filter'    => 'api-auth',
 			],
 			function (RouteCollection $routes) {
@@ -319,25 +319,25 @@ class RouterTest extends \CIUnitTestCase
 
 		$router->handle('api/posts');
 
-		$this->assertEquals('\App\Controllers\Api\PostController', $router->controllerName());
+		$this->assertEquals('\A6\Controllers\Api\PostController', $router->controllerName());
 		$this->assertEquals('index', $router->methodName());
 		$this->assertEquals('api-auth', $router->getFilter());
 
 		$router->handle('api/posts/new');
 
-		$this->assertEquals('\App\Controllers\Api\PostController', $router->controllerName());
+		$this->assertEquals('\A6\Controllers\Api\PostController', $router->controllerName());
 		$this->assertEquals('new', $router->methodName());
 		$this->assertEquals('api-auth', $router->getFilter());
 
 		$router->handle('api/posts/50');
 
-		$this->assertEquals('\App\Controllers\Api\PostController', $router->controllerName());
+		$this->assertEquals('\A6\Controllers\Api\PostController', $router->controllerName());
 		$this->assertEquals('show', $router->methodName());
 		$this->assertEquals('api-auth', $router->getFilter());
 
 		$router->handle('api/posts/50/edit');
 
-		$this->assertEquals('\App\Controllers\Api\PostController', $router->controllerName());
+		$this->assertEquals('\A6\Controllers\Api\PostController', $router->controllerName());
 		$this->assertEquals('edit', $router->methodName());
 		$this->assertEquals('api-auth', $router->getFilter());
 
@@ -349,7 +349,7 @@ class RouterTest extends \CIUnitTestCase
 
 		$router->handle('api/posts');
 
-		$this->assertEquals('\App\Controllers\Api\PostController', $router->controllerName());
+		$this->assertEquals('\A6\Controllers\Api\PostController', $router->controllerName());
 		$this->assertEquals('create', $router->methodName());
 		$this->assertEquals('api-auth', $router->getFilter());
 
@@ -361,7 +361,7 @@ class RouterTest extends \CIUnitTestCase
 
 		$router->handle('api/posts/50');
 
-		$this->assertEquals('\App\Controllers\Api\PostController', $router->controllerName());
+		$this->assertEquals('\A6\Controllers\Api\PostController', $router->controllerName());
 		$this->assertEquals('update', $router->methodName());
 		$this->assertEquals('api-auth', $router->getFilter());
 
@@ -373,7 +373,7 @@ class RouterTest extends \CIUnitTestCase
 
 		$router->handle('api/posts/50');
 
-		$this->assertEquals('\App\Controllers\Api\PostController', $router->controllerName());
+		$this->assertEquals('\A6\Controllers\Api\PostController', $router->controllerName());
 		$this->assertEquals('update', $router->methodName());
 		$this->assertEquals('api-auth', $router->getFilter());
 
@@ -385,7 +385,7 @@ class RouterTest extends \CIUnitTestCase
 
 		$router->handle('api/posts/50');
 
-		$this->assertEquals('\App\Controllers\Api\PostController', $router->controllerName());
+		$this->assertEquals('\A6\Controllers\Api\PostController', $router->controllerName());
 		$this->assertEquals('delete', $router->methodName());
 		$this->assertEquals('api-auth', $router->getFilter());
 	}

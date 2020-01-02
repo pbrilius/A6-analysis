@@ -124,3 +124,9 @@ nb-configuration.xml
 
 /results/
 /phpunit*.xml
+
+# Debugging
+/*.log
+
+# Environment vonfiguration
+.env
