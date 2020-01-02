@@ -89,7 +89,7 @@ class FileLocatorTest extends \CIUnitTestCase
 
 	public function testLocateFileReplacesFolderName()
 	{
-		$file = '\App\Views/errors/html/error_404.php';
+		$file = '\A6\Views/errors/html/error_404.php';
 
 		$expected = APPPATH . 'Views/errors/html/error_404.php';
 

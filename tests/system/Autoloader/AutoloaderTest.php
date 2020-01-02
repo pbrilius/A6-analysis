@@ -63,7 +63,7 @@ class AutoloaderTest extends \CIUnitTestCase
 		$auto_loader = \CodeIgniter\Config\Services::autoloader();
 		// $auto_loader->register();
 		// look for Home controller, as that should be in base repo
-		$actual   = $auto_loader->loadClass('App\Controllers\Home');
+		$actual   = $auto_loader->loadClass('A6\Controllers\Home');
 		$expected = APPPATH . 'Controllers/Home.php';
 		$this->assertSame($expected, $actual);
 	}
@@ -77,7 +77,7 @@ class AutoloaderTest extends \CIUnitTestCase
 		$auto_loader->initialize(new Autoload(), new Modules());
 		$auto_loader->register();
 		// look for Home controller, as that should be in base repo
-		$actual   = $auto_loader->loadClass('App\Controllers\Home');
+		$actual   = $auto_loader->loadClass('A6\Controllers\Home');
 		$expected = APPPATH . 'Controllers/Home.php';
 		$this->assertSame($expected, $actual);
 	}
@@ -86,7 +86,7 @@ class AutoloaderTest extends \CIUnitTestCase
 
 	public function testExistingFile()
 	{
-		$actual   = $this->loader->loadClass('App\Controllers\Home');
+		$actual   = $this->loader->loadClass('A6\Controllers\Home');
 		$expected = APPPATH . 'Controllers/Home.php';
 		$this->assertSame($expected, $actual);
 
@@ -99,7 +99,7 @@ class AutoloaderTest extends \CIUnitTestCase
 
 	public function testMatchesWithPreceedingSlash()
 	{
-		$actual   = $this->loader->loadClass('\App\Controllers\Home');
+		$actual   = $this->loader->loadClass('\A6\Controllers\Home');
 		$expected = APPPATH . 'Controllers/Home.php';
 		$this->assertSame($expected, $actual);
 	}
@@ -108,7 +108,7 @@ class AutoloaderTest extends \CIUnitTestCase
 
 	public function testMatchesWithFileExtension()
 	{
-		$actual   = $this->loader->loadClass('\App\Controllers\Home.php');
+		$actual   = $this->loader->loadClass('\A6\Controllers\Home.php');
 		$expected = APPPATH . 'Controllers/Home.php';
 		$this->assertSame($expected, $actual);
 	}
@@ -117,7 +117,7 @@ class AutoloaderTest extends \CIUnitTestCase
 
 	public function testMissingFile()
 	{
-		$this->assertFalse($this->loader->loadClass('\App\Missing\Classname'));
+		$this->assertFalse($this->loader->loadClass('\A6\Missing\Classname'));
 	}
 
 	//--------------------------------------------------------------------
@@ -140,11 +140,11 @@ class AutoloaderTest extends \CIUnitTestCase
 
 	public function testAddNamespaceWorks()
 	{
-		$this->assertFalse($this->loader->loadClass('My\App\Class'));
+		$this->assertFalse($this->loader->loadClass('My\A6\Class'));
 
 		$this->loader->addNamespace('My\App', __DIR__);
 
-		$actual   = $this->loader->loadClass('My\App\AutoloaderTest');
+		$actual   = $this->loader->loadClass('My\A6\AutoloaderTest');
 		$expected = __FILE__;
 
 		$this->assertSame($expected, $actual);
@@ -155,22 +155,22 @@ class AutoloaderTest extends \CIUnitTestCase
 		$this->loader->addNamespace('My\App', APPPATH . 'Config');
 		$this->loader->addNamespace('My\App', __DIR__);
 
-		$actual   = $this->loader->loadClass('My\App\App');
+		$actual   = $this->loader->loadClass('My\A6\App');
 		$expected = APPPATH . 'Config/App.php';
 		$this->assertSame($expected, $actual);
 
-		$actual   = $this->loader->loadClass('My\App\AutoloaderTest');
+		$actual   = $this->loader->loadClass('My\A6\AutoloaderTest');
 		$expected = __FILE__;
 		$this->assertSame($expected, $actual);
 	}
 
 	public function testAddNamespaceStringToArray()
 	{
-		$this->loader->addNamespace('App\Controllers', __DIR__);
+		$this->loader->addNamespace('A6\Controllers', __DIR__);
 
 		$this->assertSame(
 			__FILE__,
-			$this->loader->loadClass('App\Controllers\AutoloaderTest')
+			$this->loader->loadClass('A6\Controllers\AutoloaderTest')
 		);
 	}
 
@@ -179,10 +179,10 @@ class AutoloaderTest extends \CIUnitTestCase
 	public function testRemoveNamespace()
 	{
 		$this->loader->addNamespace('My\App', __DIR__);
-		$this->assertSame(__FILE__, $this->loader->loadClass('My\App\AutoloaderTest'));
+		$this->assertSame(__FILE__, $this->loader->loadClass('My\A6\AutoloaderTest'));
 
 		$this->loader->removeNamespace('My\App');
-		$this->assertFalse((bool) $this->loader->loadClass('My\App\AutoloaderTest'));
+		$this->assertFalse((bool) $this->loader->loadClass('My\A6\AutoloaderTest'));
 	}
 
 	//--------------------------------------------------------------------

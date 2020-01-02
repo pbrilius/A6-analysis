@@ -1206,7 +1206,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'doc.example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['subdomain' => 'doc', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['subdomain' => 'doc', 'as' => 'doc_item']);
 
 		$this->assertEquals('/i/sth', $routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1218,7 +1218,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'dev.example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['subdomain' => 'doc', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['subdomain' => 'doc', 'as' => 'doc_item']);
 
 		$this->assertFalse($routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1230,7 +1230,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['subdomain' => 'doc', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['subdomain' => 'doc', 'as' => 'doc_item']);
 
 		$this->assertFalse($routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1242,7 +1242,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'doc.example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['subdomain' => '*', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['subdomain' => '*', 'as' => 'doc_item']);
 
 		$this->assertEquals('/i/sth', $routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1254,7 +1254,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'dev.example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['subdomain' => '*', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['subdomain' => '*', 'as' => 'doc_item']);
 
 		$this->assertEquals('/i/sth', $routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1266,7 +1266,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['subdomain' => '*', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['subdomain' => '*', 'as' => 'doc_item']);
 
 		$this->assertEquals('/i/sth', $routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1278,7 +1278,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'doc.example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['hostname' => 'example.com', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['hostname' => 'example.com', 'as' => 'doc_item']);
 
 		$this->assertFalse($routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1290,7 +1290,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'dev.example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['hostname' => 'example.com', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['hostname' => 'example.com', 'as' => 'doc_item']);
 
 		$this->assertFalse($routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1302,7 +1302,7 @@ class RouteCollectionTest extends \CIUnitTestCase
 		Services::request()->setMethod('get');
 		$_SERVER['HTTP_HOST'] = 'example.com';
 
-		$routes->get('i/(:any)', 'App\Controllers\Site\CDoc::item/$1', ['hostname' => 'example.com', 'as' => 'doc_item']);
+		$routes->get('i/(:any)', 'A6\Controllers\Site\CDoc::item/$1', ['hostname' => 'example.com', 'as' => 'doc_item']);
 
 		$this->assertEquals('/i/sth', $routes->reverseRoute('doc_item', 'sth'));
 	}
@@ -1319,15 +1319,15 @@ class RouteCollectionTest extends \CIUnitTestCase
 		$routes = $this->getCollector();
 		$router = new Router($routes, Services::request());
 
-		$routes->setDefaultNamespace('App\Controllers');
+		$routes->setDefaultNamespace('A6\Controllers');
 		$routes->setDefaultController('Home');
 		$routes->setDefaultMethod('index');
 		$routes->setHTTPVerb('get');
 
-		$routes->get('/', 'App\Controllers\Site\CDoc::index', ['subdomain' => 'doc', 'as' => 'doc_index']);
+		$routes->get('/', 'A6\Controllers\Site\CDoc::index', ['subdomain' => 'doc', 'as' => 'doc_index']);
 		$routes->get('/', 'Home::index', ['subdomain' => 'dev']);
 
-		$expects = '\App\Controllers\Site\CDoc';
+		$expects = '\A6\Controllers\Site\CDoc';
 
 		$this->assertEquals($expects, $router->handle('/'));
 	}
@@ -1340,15 +1340,15 @@ class RouteCollectionTest extends \CIUnitTestCase
 		$routes = $this->getCollector();
 		$router = new Router($routes, Services::request());
 
-		$routes->setDefaultNamespace('App\Controllers');
+		$routes->setDefaultNamespace('A6\Controllers');
 		$routes->setDefaultController('Home');
 		$routes->setDefaultMethod('index');
 
-		$routes->get('/', 'App\Controllers\Site\CDoc::index', ['subdomain' => 'doc', 'as' => 'doc_index']);
+		$routes->get('/', 'A6\Controllers\Site\CDoc::index', ['subdomain' => 'doc', 'as' => 'doc_index']);
 		$routes->get('/', 'Home::index');
 
 		// the second rule applies, so overwrites the first
-		$expects = '\App\Controllers\Home';
+		$expects = '\A6\Controllers\Home';
 
 		$this->assertEquals($expects, $router->handle('/'));
 	}
@@ -1361,14 +1361,14 @@ class RouteCollectionTest extends \CIUnitTestCase
 		$routes = $this->getCollector();
 		$router = new Router($routes, Services::request());
 
-		$routes->setDefaultNamespace('App\Controllers');
+		$routes->setDefaultNamespace('A6\Controllers');
 		$routes->setDefaultController('Home');
 		$routes->setDefaultMethod('index');
 
 		$routes->get('/', 'Home::index');
-		$routes->get('/', 'App\Controllers\Site\CDoc::index', ['subdomain' => 'doc', 'as' => 'doc_index']);
+		$routes->get('/', 'A6\Controllers\Site\CDoc::index', ['subdomain' => 'doc', 'as' => 'doc_index']);
 
-		$expects = '\App\Controllers\Site\CDoc';
+		$expects = '\A6\Controllers\Site\CDoc';
 
 		$this->assertEquals($expects, $router->handle('/'));
 	}
@@ -1381,14 +1381,14 @@ class RouteCollectionTest extends \CIUnitTestCase
 		$routes = $this->getCollector();
 		$router = new Router($routes, Services::request());
 
-		$routes->setDefaultNamespace('App\Controllers');
+		$routes->setDefaultNamespace('A6\Controllers');
 		$routes->setDefaultController('Home');
 		$routes->setDefaultMethod('index');
 
 		$routes->get('/', 'Home::index', ['as' => 'ddd']);
-		$routes->get('/', 'App\Controllers\Site\CDoc::index', ['subdomain' => 'doc', 'as' => 'doc_index']);
+		$routes->get('/', 'A6\Controllers\Site\CDoc::index', ['subdomain' => 'doc', 'as' => 'doc_index']);
 
-		$expects = '\App\Controllers\Site\CDoc';
+		$expects = '\A6\Controllers\Site\CDoc';
 
 		$this->assertEquals($expects, $router->handle('/'));
 	}
@@ -1401,14 +1401,14 @@ class RouteCollectionTest extends \CIUnitTestCase
 		$routes = $this->getCollector();
 		$router = new Router($routes, Services::request());
 
-		$routes->setDefaultNamespace('App\Controllers');
+		$routes->setDefaultNamespace('A6\Controllers');
 		$routes->setDefaultController('Home');
 		$routes->setDefaultMethod('index');
 
 		$routes->get('/', 'Home::index', ['as' => 'ddd']);
-		$routes->get('/', 'App\Controllers\Site\CDoc::index', ['hostname' => 'doc.domain.com', 'as' => 'doc_index']);
+		$routes->get('/', 'A6\Controllers\Site\CDoc::index', ['hostname' => 'doc.domain.com', 'as' => 'doc_index']);
 
-		$expects = '\App\Controllers\Site\CDoc';
+		$expects = '\A6\Controllers\Site\CDoc';
 
 		$this->assertEquals($expects, $router->handle('/'));
 	}

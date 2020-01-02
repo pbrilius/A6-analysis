@@ -9,9 +9,9 @@
 // classes should use.
 //
 // NOTE: changing this will require manually modifying the
-// existing namespaces of App\* namespaced-classes.
+// existing namespaces of A6\* namespaced-classes.
 //
-defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
+defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'A6');
 
 /*
 |--------------------------------------------------------------------------
