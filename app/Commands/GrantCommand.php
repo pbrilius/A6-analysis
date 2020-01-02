@@ -16,6 +16,26 @@ class GrantCommand extends BaseCommand
 		CLI::write('Starting to request access');
 		CLI::write('Client ID: ' . CLI::color(getenv('CLIENT_ID'), 'yellow'));
 
-		$this->logger->log('info', '[INFO] Starting to grant access to API - client ID {clientId}', ['clientId' => getenv('CLIENT_ID')]);
+		$this->logger->log('info', '[CLI] Starting to grant access to API - client ID {clientId}', ['clientId' => getenv('CLIENT_ID')]);
+
+		$options  = [
+			'base_uri' => base_url(),
+			'timeout'  => 3,
+		];
+		$client   = \Config\Services::curlrequest($options);
+		$response = $client->get(site_url(['spotify-grant']));
+
+		CLI::write('Received response: ' . CLI::color($response->getStatusCode(), 'light_blue', 'light_gray'));
+
+		if ($response->getStatusCode() >= '400')
+		{
+			CLI::error('Access denied');
+			$this->logger->log('error', 'Access denied');
+		}
+		else
+		{
+			CLI::write('Access granted', 'light_green');
+			$this->logger->log('info', 'Access granted');
+		}
 	}
 }
