@@ -71,6 +71,6 @@ class Spotify extends BaseController
 
 		$this->tokenModel->save($token);
 
-		$this->response->setStatusCode(201);
+		$this->response->setStatusCode(200);
 	}
 }
