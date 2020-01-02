@@ -42,7 +42,7 @@ class Logger extends BaseConfig
 	|
 	|
 	*/
-	public $path = '';
+	public $path = 'writable/logs/';
 
 	/*
 	|--------------------------------------------------------------------------
