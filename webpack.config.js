@@ -3,7 +3,15 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'a6.js',
+    filename: 'main.js',
     path: path.resolve(__dirname, 'public/dist'),
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
 };
