@@ -1,5 +1,6 @@
 <?= $this->extend('content') ?>
 
+<?= $this->section('dashboard') ?>
 <div class="container-fluid">
 	<div class="jumbotron">
 		<h1 class="display-4"><?= $title ?></h1>
@@ -12,4 +13,4 @@
 		<?= $this->renderSection('dashboardContent') ?>
 	</div>
 </div>
-
+<?= $this->endSection() ?>
