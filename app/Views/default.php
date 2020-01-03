@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 <head>
-	<?= $this->renderSection('bootstrap') ?>
     <title><?= $title ?></title>
 </head>
 <body>
