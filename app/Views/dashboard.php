@@ -6,6 +6,8 @@
 		<p>It uses Codeigniter with webpack, bootstrap and layered views dashboard.</p>
 		<a class="btn btn-primary btn-lg" href="#" role="button">See dashboard</a>
 	</div>
+	<div>
+		<?= $this->renderSection('dashboardContent') ?>
+	</div>
 </div>
 
-<?= $this->renderSection('dashboardContent') ?>

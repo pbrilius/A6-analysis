@@ -73,4 +73,13 @@ class Spotify extends BaseController
 
 		$this->response->setStatusCode(200);
 	}
+
+	public function dashboard()
+	{
+		$data = [
+			'title' => 'Spotify Dashboard',
+		];
+
+		return view('Spotify/startup', $data, ['cache' => 60]);
+	}
 }

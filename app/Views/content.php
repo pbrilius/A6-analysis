@@ -2,4 +2,4 @@
 
 <?= $this->section('content') ?>
 	<?=	$this->include('dashboard') ?>
-<?= $this->endSectino() ?>
+<?= $this->endSection() ?>
