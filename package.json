@@ -29,6 +29,9 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "lodash": "^4.17.15"
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
+    "popper.js": "^1.16.0"
   }
 }
