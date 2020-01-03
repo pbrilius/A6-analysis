@@ -11,6 +11,6 @@
 	<footer>
 		<?=	$this->include('footer') ?>
 	</footer>
-</body>
 	<?= $this->renderSection('scripts/A6') ?>
+</body>
 </html>
