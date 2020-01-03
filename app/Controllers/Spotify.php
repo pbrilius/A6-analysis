@@ -80,6 +80,6 @@ class Spotify extends BaseController
 			'title' => 'Spotify Dashboard',
 		];
 
-		return view('Spotify/startup', $data);
+		return view('Spotify/startup', $data, ['cache' => 0]);
 	}
 }

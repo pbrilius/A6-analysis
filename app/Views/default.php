@@ -7,10 +7,10 @@
 	<header>
 		<?= $this->include('header') ?>
 	</header>
-    <?= $this->renderSection('content') ?>
+	<?= $this->renderSection('content') ?>
 	<footer>
 		<?=	$this->include('footer') ?>
 	</footer>
-	<?= $this->renderSection('scripts/A6') ?>
+	<?= $this->include('scripts') ?>
 </body>
 </html>
