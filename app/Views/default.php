@@ -6,5 +6,5 @@
 <body>
     <?= $this->renderSection('content') ?>
 </body>
-<?= $this->renderSection('scripts') ?>
+	<?= $this->renderSection('scripts/A6') ?>
 </html>

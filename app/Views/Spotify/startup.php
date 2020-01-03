@@ -1,3 +1,3 @@
-<?= $this->extend('dashboard') ?>
+<?= $this->section('dashboard') ?>
 	<div>Test spotify dashboard</div>
 <?= $this->endSection() ?>
