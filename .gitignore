@@ -133,3 +133,6 @@ nb-configuration.xml
 
 # PHPUnit cache
 .phpunit.result.cache
+
+# Frontend economics
+node_modules/
