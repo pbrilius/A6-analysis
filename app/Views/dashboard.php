@@ -2,8 +2,10 @@
 
 <?= $this->section('dashboard') ?>
 <div class="container-fluid">
-	<div>
-		<?= $this->renderSection('dashboardContent') ?>
+	<div class="row">
+		<div class="col-12" id="pageDashboard">
+			<?= $this->renderSection('dashboardContent') ?>
+		</div>
 	</div>
 </div>
 <?= $this->endSection() ?>
