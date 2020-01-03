@@ -7,3 +7,5 @@
 		<a class="btn btn-primary btn-lg" href="#" role="button">See dashboard</a>
 	</div>
 </div>
+
+<?= $this->renderSection('dashboardContent') ?>
