@@ -1,5 +1,6 @@
 <?= $this->extend('default') ?>
-test content
+
 <?= $this->section('content') ?>
+	test content2
 	<?=	$this->renderSection('dashboard') ?>
 <?= $this->endSection() ?>
