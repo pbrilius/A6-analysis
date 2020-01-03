@@ -1,5 +1,5 @@
 <?= $this->extend('default') ?>
 
 <?= $this->section('content') ?>
-	<?=	$this->include('dashboard') ?>
+	<?=	$this->renderSection('dashboard') ?>
 <?= $this->endSection() ?>

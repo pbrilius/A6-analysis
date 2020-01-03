@@ -1,3 +1,5 @@
+<?= $this->extend('content') ?>
+
 <div class="container-fluid">
 	<div class="jumbotron">
 		<h1 class="display-4"><?= $title ?></h1>
