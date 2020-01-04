@@ -2,13 +2,13 @@
 
 use CodeIgniter\Test\ControllerTester;
 
-class SpotifyTest extends \CIUnitTestCase
+class TestControllerSpotify extends \CodeIgniter\Test\CIDatabaseTestCase
 {
 	use ControllerTester;
 
 	public function testGrant()
 	{
-		$result = $this->withURI(site_url(['spotify-grant']))
+		$result = $this->withURI('localhost:8080/spotify-grant')
 						->controller(\A6\Controllers\Spotify::class)
 						->execute('grant');
 
