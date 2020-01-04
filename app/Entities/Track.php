@@ -15,6 +15,10 @@ class Track extends Entity
 		'deleted_at' => null,
 	];
 
+	protected $casts = [
+		'data' => 'json',
+	];
+
 	public function setCreatedAt(string $dateString)
 	{
 		$this->attributes['created_at'] = new Time($dateString, 'UTC');
