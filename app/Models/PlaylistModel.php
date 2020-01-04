@@ -13,7 +13,10 @@ class PlaylistModel extends Model
 	protected $returnType     = Playlist::class;
 	protected $useSoftDeletes = true;
 
-	protected $allowedFields = ['name'];
+	protected $allowedFields = [
+		'spotifyId',
+		'data',
+	];
 
 	protected $useTimestamps = true;
 

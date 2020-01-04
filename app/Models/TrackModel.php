@@ -13,7 +13,10 @@ class TrackModel extends Model
 	protected $returnType     = Track::class;
 	protected $useSoftDeletes = true;
 
-	protected $allowedFields = ['data'];
+	protected $allowedFields = [
+		'spotifyId',
+		'data',
+	];
 
 	protected $useTimestamps = true;
 
