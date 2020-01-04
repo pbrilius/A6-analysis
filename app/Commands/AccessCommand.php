@@ -5,6 +5,7 @@ namespace A6\Commands;
 use A6\Models\PlaylistModel;
 use A6\Models\TokenModel;
 use A6\Models\TrackModel;
+use App\Entities\Playlist;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\Database\BaseConnection;
@@ -87,6 +88,47 @@ class AccessCommand extends BaseCommand
 		CLI::write('Access token: ' . CLI::color($accessToken, 'light_green'));
 		log_message('info', 'Access token {accessToken}', ['accessToken' => $accessToken]);
 
+		$message = 'Getting playlist info';
+		CLI::write($message);
+		log_message('info', $message);
+
+		$response = $client->get('playlists/' . getenv('PLAYLIST_SPOTIFY_ID'), [
+			'headers' => [
+				'Authorization' => 'Bearer ' . $accessToken,
+			],
+		]);
+
+		var_dump($response->getStatusCode());
+
+		if ($response->getStatusCode() !== 200)
+		{
+			$message = 'Spotify playlist access denied';
+			CLI::error($message);
+			log_message($message);
+			return;
+		}
+
+		$builder           = $db->table('playlists');
+		$playlistPersisted = $builder->getWhere([
+			'spotifyId' => getenv('PLAYLIST_SPOTIFY_ID'),
+		])->getResult();
+
+		var_export($playlistPersisted);
+		// exit;
+
+		if (! $playlistPersisted)
+		{
+			$playlist = new Playlist();
+			$playlist->fill([
+				'spotifyId' => getenv('PLAYLIST_SPOTIFY_ID'),
+				'data'      => $response->getBody(),
+			]);
+			$this->playlistModel->save($playlist);
+		}
+
+		CLI::write('Checked for playlist in database and ' . CLI::color('updated', 'light_red') . ' details');
+		CLI::write(CLI::color('Querying', 'light_cyan') . ' for playlist tracks');
+
 		$response = $client->get('playlists/' . getenv('PLAYLIST_SPOTIFY_ID') . '/tracks', [
 			'headers' => [
 				'Authorization' => 'Bearer ' . $accessToken,
@@ -94,6 +136,12 @@ class AccessCommand extends BaseCommand
 		]);
 
 		var_dump($response->getStatusCode());
+
+		$tracks = json_decode($response->getBody(), true)['items'];
+
+		foreach ($tracks as $track)
+		{
+		}
 	}
 
 }
