@@ -2,6 +2,7 @@
 
 namespace A6\Commands;
 
+use A6\Entities\Track;
 use A6\Models\PlaylistModel;
 use A6\Models\TokenModel;
 use A6\Models\TrackModel;
@@ -113,18 +114,22 @@ class AccessCommand extends BaseCommand
 			'spotifyId' => getenv('PLAYLIST_SPOTIFY_ID'),
 		])->getResult();
 
-		var_export($playlistPersisted);
+		// var_export($playlistPersisted);
 		// exit;
 
 		if (! $playlistPersisted)
 		{
 			$playlist = new Playlist();
-			$playlist->fill([
-				'spotifyId' => getenv('PLAYLIST_SPOTIFY_ID'),
-				'data'      => $response->getBody(),
-			]);
-			$this->playlistModel->save($playlist);
 		}
+		else
+		{
+			$playlist = $this->playlistModel->find($playlistPersisted[0]->id);
+		}
+		$playlist->fill([
+			'spotifyId' => getenv('PLAYLIST_SPOTIFY_ID'),
+			'data'      => $response->getBody(),
+		]);
+		$this->playlistModel->save($playlist);
 
 		CLI::write('Checked for playlist in database and ' . CLI::color('updated', 'light_red') . ' details');
 		CLI::write(CLI::color('Querying', 'light_cyan') . ' for playlist tracks');
@@ -139,9 +144,36 @@ class AccessCommand extends BaseCommand
 
 		$tracks = json_decode($response->getBody(), true)['items'];
 
+		var_dump($tracks);
+		// die;
 		foreach ($tracks as $track)
 		{
+			var_export($track);
+			// die;
+			CLI::write('Persisting and updating track: ' . CLI::color($track['track']['id'], 'light_red'));
+			$builder        = $db->table('tracks');
+			$persistedTrack = $builder->getWhere([
+				'spotifyId' => $track['track']['id'],
+			])->getResult();
+
+			if (! $persistedTrack)
+			{
+				$trackEntity = new Track();
+			}
+			else
+			{
+				$trackEntity = $this->trackModel->find($persistedTrack[0]->id);
+			}
+			$trackEntity->fill([
+				'spotifyId' => $track['track']['id'],
+				'data'      => json_encode($track),
+			]);
+
+			$this->trackModel->save($trackEntity);
 		}
+
+		CLI::clearScreen();
+		CLI::write('Operations performed');
 	}
 
 }
