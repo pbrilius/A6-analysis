@@ -82,8 +82,6 @@ class AccessCommand extends BaseCommand
 			->orderBy('created_at', 'DESC')
 			->get(1, 0);
 
-		var_dump($query->getResult()[0]->created_at);
-		// die;
 		$accessToken = $query->getResult()[0]->access;
 
 		CLI::write('Access token: ' . CLI::color($accessToken, 'light_green'));
@@ -99,8 +97,6 @@ class AccessCommand extends BaseCommand
 			],
 		]);
 
-		var_dump($response->getStatusCode());
-
 		if ($response->getStatusCode() !== 200)
 		{
 			$message = 'Spotify playlist access denied';
@@ -113,9 +109,6 @@ class AccessCommand extends BaseCommand
 		$playlistPersisted = $builder->getWhere([
 			'spotifyId' => getenv('PLAYLIST_SPOTIFY_ID'),
 		])->getResult();
-
-		// var_export($playlistPersisted);
-		// exit;
 
 		if (! $playlistPersisted)
 		{
@@ -140,17 +133,14 @@ class AccessCommand extends BaseCommand
 			],
 		]);
 
-		var_dump($response->getStatusCode());
-
 		$tracks = json_decode($response->getBody(), true)['items'];
+		CLI::write(CLI::color('Storing and persisting', 'light_cyan') . ' playlist tracks');
 
-		var_dump($tracks);
-		// die;
+		$totalSteps = count($tracks);
+		$currStep   = 1;
 		foreach ($tracks as $track)
 		{
-			var_export($track);
-			// die;
-			CLI::write('Persisting and updating track: ' . CLI::color($track['track']['id'], 'light_red'));
+			// CLI::write('Persisting and updating track: ' . CLI::color($track['track']['id'], 'light_red'));
 			$builder        = $db->table('tracks');
 			$persistedTrack = $builder->getWhere([
 				'spotifyId' => $track['track']['id'],
@@ -170,10 +160,11 @@ class AccessCommand extends BaseCommand
 			]);
 
 			$this->trackModel->save($trackEntity);
+			CLI::showProgress($currStep++, $totalSteps);
 		}
 
 		CLI::clearScreen();
-		CLI::write('Operations performed');
+		CLI::write('Playlist tracks operations performed');
 	}
 
 }
