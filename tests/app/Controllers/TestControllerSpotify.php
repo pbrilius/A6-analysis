@@ -14,7 +14,22 @@ class TestControllerSpotify extends \CodeIgniter\Test\CIDatabaseTestCase
 
 		$this->assertTrue($result->isOK());
 
-		$results->dontSeeElement('html');
-		$results->dontSeeElement('pre');
+		$this->assertTrue($results->dontSeeElement('html'));
+		$this->assertTrue($results->dontSeeElement('pre'));
+	}
+
+	public function testDashboard()
+	{
+		$result = $this->withURI('localhost:8080/dashboard')
+						->controller(\A6\Controllers\Spotify::class)
+						->execute('dashboard');
+
+		// var_dump($result->getHeaders());
+		// var_dump($result->getBody());
+		// var_dump($result->getBody());
+		$this->assertTrue($result->isOK());
+		$this->assertTrue($result->dontSee('Hello world'));
+		$this->assertTrue($result->dontSeeElement('pre'));
+		$this->assertTrue($result->seeLink('See dashboard', '.btn-primary'));
 	}
 }
