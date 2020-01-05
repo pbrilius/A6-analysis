@@ -114,12 +114,20 @@ class Spotify extends BaseController
 		}
 
 		$playlistRadar->setTracks($tracksData);
-		$labels  = $playlistRadar->extractLabels($tracksData);
+		$labels = $playlistRadar->extractLabels($tracksData);
+		var_dump($labels);
+		// exit;
 		$markets = $playlistRadar->extractMarkets($tracksData);
-
+		var_dump($markets);
+		// exit;
+		$jsonProcessing->setLabels($labels);
+		$jsonProcessing->setDatasets($markets);
 		$formattedLabels  = $jsonProcessing->labelsFormatting($labels);
 		$formattedMarkets = $jsonProcessing->datasetsFormatting($markets);
 
+		var_dump($formattedLabels);
+		var_dump($formattedMarkets);
+		// exit;
 		$data = [
 			'title'    => 'Spotify Dashboard',
 			'labels'   => $formattedLabels,
