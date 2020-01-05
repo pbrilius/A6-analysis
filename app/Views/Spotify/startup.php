@@ -1,5 +1,15 @@
 <?= $this->extend('dashboard'); ?>
 
 <?= $this->section('dashboardContent') ?>
-	<div>Test spotify dashboard</div>
+	<canvas id="spotifyMarketDistro"></canvas>
+	<script>
+	var ctx = $('spotifyMarketDistro');
+	var chartRadar = new Chart(ctx, {
+		type: 'radar',
+		data: data,
+		options: [
+
+		]
+	});
+	</script>
 <?= $this->endSection() ?>
