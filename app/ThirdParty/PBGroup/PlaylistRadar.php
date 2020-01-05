@@ -35,9 +35,11 @@ class PlaylistRadar
 			$dataset->data[] = sizeof($trakc['track']['markets']);
 		}
 
-		return [
+		$extractedMarkets = [
 			$dataset,
 		];
+
+		return $extractedMarkets;
 	}
 
 	/**
