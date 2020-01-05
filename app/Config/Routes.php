@@ -74,7 +74,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/spotify-grant', 'Spotify::grant');
-$routes->get('/spotify-access', 'Spotify::access');
+$routes->get('/dashboard', 'Spotify::dashboard');
 
 /**
  * --------------------------------------------------------------------

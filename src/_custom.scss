@@ -1,0 +1,33 @@
+// Your variable overrides
+$body-bg: rgba(170, 98, 15, 0.562);
+$body-color: rgba(20, 70, 110, 0.719);
+
+$theme-colors: (
+  "primary":    #9e7a36,
+  "danger":     #a01a137c,
+  "secondary":  #cab812,
+  "success":    #d612d6,
+  "info":       #ca4377,
+  "warning":    #d8d515b7,
+  "light":      #11bcd3,
+  "dark":       #493704
+);
+
+$yiq-contrasted-threshold:  224;
+
+$enable-caret:                                true;
+$enable-rounded:                              false;
+$enable-shadows:                              true;
+$enable-gradients:                            false;
+$enable-transitions:                          true;
+$enable-prefers-reduced-motion-media-query:   true;
+$enable-hover-media-query:                    false; // Deprecated, no longer affects any compiled CSS
+$enable-grid-classes:                         true;
+$enable-pointer-cursor-for-buttons:           true;
+$enable-print-styles:                         false;
+$enable-responsive-font-sizes:                false;
+$enable-validation-icons:                     true;
+$enable-deprecation-messages:                 true;
+
+// Bootstrap and its default variables
+@import "node_modules/bootstrap/scss/bootstrap";

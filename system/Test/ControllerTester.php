@@ -102,7 +102,7 @@ trait ControllerTester
 	 *
 	 * @var string
 	 */
-	protected $uri = 'http://example.com';
+	protected $uri = 'http://localhost:8080';
 	/**
 	 * Request or response body.
 	 *
