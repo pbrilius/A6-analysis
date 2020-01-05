@@ -113,6 +113,7 @@ class Spotify extends BaseController
 			$tracksData[] = $track->data;
 		}
 
+		$playlistRadar->setTracks($tracksData);
 		$labels  = $playlistRadar->extractLabels($tracksData);
 		$markets = $playlistRadar->extractMarkets($tracksData);
 

@@ -17,7 +17,7 @@ class PlaylistRadar
 		$extractedLabels = [];
 		foreach ($tracks as $track)
 		{
-			$extractedLabels[] = $track['track']['label'];
+			$extractedLabels[] = $track->track->name;
 		}
 
 		return $extractedLabels;
@@ -32,7 +32,7 @@ class PlaylistRadar
 		$dataset->data = [];
 		foreach ($tracks as $track)
 		{
-			$dataset->data[] = sizeof($trakc['track']['markets']);
+			$dataset->data[] = sizeof($track->track->album->available_markets);
 		}
 
 		$extractedMarkets = [
