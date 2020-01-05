@@ -5,6 +5,8 @@ namespace A6\Controllers;
 use A6\Controllers\BaseController;
 use A6\Entities\Token;
 use A6\Models\TokenModel;
+use A6\Models\TrackModel;
+use A6\ThirdParty\PBGroup\JsonProcessing;
 use GuzzleHttp\Client;
 
 class Spotify extends BaseController
@@ -25,16 +27,32 @@ class Spotify extends BaseController
 	private $tokenModel;
 
 	/**
+	 * JSON processing module
+	 *
+	 * @var JsonProcessing
+	 */
+	private $jsonProcessing;
+
+	/**
+	 * Tracks model
+	 *
+	 * @var TrackModel
+	 */
+	private $trackModel;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
-		$options          = [
+		$options              = [
 			'base_uri' => getenv('spotify.grant.url'),
 			'timeout'  => 3,
 		];
-		$this->client     = \Config\Services::curlrequest($options);
-		$this->tokenModel = new TokenModel();
+		$this->client         = \Config\Services::curlrequest($options);
+		$this->tokenModel     = new TokenModel();
+		$this->jsonProcessing = new JsonProcessing();
+		$this->trackModel     = new TrackModel();
 	}
 
 	/**
@@ -76,6 +94,8 @@ class Spotify extends BaseController
 
 	public function dashboard()
 	{
+		$tracks = $this->trackModel->findAll();
+
 		$data = [
 			'title' => 'Spotify Dashboard',
 		];
