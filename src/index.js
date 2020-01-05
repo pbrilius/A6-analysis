@@ -11,8 +11,8 @@ $(function() {
 			labels: labels,
 			datasets: datasets
 		},
-		options: [
-
-		]
+		options: {
+            label: chartLabel
+        }
 	});
 });

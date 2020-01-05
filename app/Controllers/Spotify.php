@@ -117,15 +117,21 @@ class Spotify extends BaseController
 		$labels  = $playlistRadar->extractLabels($tracksData);
 		$markets = $playlistRadar->extractMarkets($tracksData);
 
+		$chartLabel   = 'Global tracks (by album) market distribution';
+		$datasetLabel = 'Market distro of Startup - PB Group Spotify album';
+
+		$markets[0]->label = $datasetLabel;
+
 		$jsonProcessing->setLabels($labels);
 		$jsonProcessing->setDatasets($markets);
 		$formattedLabels  = $jsonProcessing->labelsFormatting($labels);
 		$formattedMarkets = $jsonProcessing->datasetsFormatting($markets);
 
 		$data = [
-			'title'    => 'Spotify Dashboard',
-			'labels'   => $formattedLabels,
-			'datasets' => $formattedMarkets,
+			'title'      => 'Spotify Dashboard',
+			'labels'     => $formattedLabels,
+			'datasets'   => $formattedMarkets,
+			'chartLabel' => $chartLabel,
 		];
 
 		return view('Spotify/startup', $data, ['cache' => 60]);

@@ -5,5 +5,6 @@
 	<script>
 		var labels = <?= $labels ?>;
 		var datasets = <?= $datasets ?>;
+		var chartLabel = '<?= $chartLabel ?>';
 	</script>
 <?= $this->endSection() ?>
