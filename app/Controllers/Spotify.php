@@ -120,7 +120,8 @@ class Spotify extends BaseController
 		$chartLabel   = 'Global tracks (by album) market distribution';
 		$datasetLabel = 'Market distro of Startup - PB Group Spotify album';
 
-		$markets[0]->label = $datasetLabel;
+		$markets[0]->label       = $datasetLabel;
+		$markets[0]->borderColor = 'rgb(49, 12, 181)';
 
 		$jsonProcessing->setLabels($labels);
 		$jsonProcessing->setDatasets($markets);
