@@ -13,10 +13,31 @@ class PlaylistRadar
 
 	public function extractLabels()
 	{
+		$tracks          = $this->tracks;
+		$extractedLabels = [];
+		foreach ($tracks as $track)
+		{
+			$extractedLabels[] = $track['track']['label'];
+		}
+
+		return $extractedLabels;
 	}
 
 	public function extractMarkets()
 	{
+		$tracks           = $this->tracks;
+		$extractedMarkets = [];
+
+		$dataset       = new \stdClass();
+		$dataset->data = [];
+		foreach ($tracks as $track)
+		{
+			$dataset->data[] = sizeof($trakc['track']['markets']);
+		}
+
+		return [
+			$dataset,
+		];
 	}
 
 	/**

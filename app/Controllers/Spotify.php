@@ -7,6 +7,7 @@ use A6\Entities\Token;
 use A6\Models\TokenModel;
 use A6\Models\TrackModel;
 use A6\ThirdParty\PBGroup\JsonProcessing;
+use A6\ThirdParty\PBGroup\PlaylistRadar;
 use GuzzleHttp\Client;
 
 class Spotify extends BaseController
@@ -41,6 +42,13 @@ class Spotify extends BaseController
 	private $trackModel;
 
 	/**
+	 * Playlist radat
+	 *
+	 * @var PlaylistRadar
+	 */
+	private $playlistRadar;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -53,6 +61,7 @@ class Spotify extends BaseController
 		$this->tokenModel     = new TokenModel();
 		$this->jsonProcessing = new JsonProcessing();
 		$this->trackModel     = new TrackModel();
+		$this->playlistRadar  = new PlaylistRadar();
 	}
 
 	/**
@@ -94,10 +103,26 @@ class Spotify extends BaseController
 
 	public function dashboard()
 	{
-		$tracks = $this->trackModel->findAll();
+		$tracks         = $this->trackModel->findAll();
+		$playlistRadar  = $this->playlistRadar;
+		$jsonProcessing = $this->jsonProcessing;
+
+		$tracksData = [];
+		foreach ($tracks as $track)
+		{
+			$tracksData[] = $track->data;
+		}
+
+		$labels  = $playlistRadar->extractLabels($tracksData);
+		$markets = $playlistRadar->extractMarkets($tracksData);
+
+		$formattedLabels  = $jsonProcessing->labelsFormatting($labels);
+		$formattedMarkets = $jsonProcessing->datasetsFormatting($markets);
 
 		$data = [
-			'title' => 'Spotify Dashboard',
+			'title'    => 'Spotify Dashboard',
+			'labels'   => $formattedLabels,
+			'datasets' => $formattedMarkets,
 		];
 
 		return view('Spotify/startup', $data, ['cache' => 60]);
