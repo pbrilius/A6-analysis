@@ -2,3 +2,7 @@ tasks:
   - init: npm install
 image:
   file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - bajdzis.vscode-database@2.2.0:KaEYYfe8G3NOWlsM6VNLHA==
