@@ -125,6 +125,13 @@ php artisan migrate
 cp -v env .env
 ```
 
+Grant Spotify credentials:
+
+```shell
+php spark spotify:grant
+php spark spotify:access
+```
+
 Add Spotify **Client ID**, **Client Secret** and **Spotify PLayList ID** to .env, then reload PHP server and get to the dashboard http://localhost:8080/dashboard.
 
 
