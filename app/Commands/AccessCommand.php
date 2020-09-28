@@ -1,4 +1,3 @@
-
 <?php
 
 namespace A6\Commands;
@@ -79,7 +78,7 @@ class AccessCommand extends BaseCommand
 
 		$builder = $db->table('tokens');
 		$query   = $builder
-			->select('access, created_at')
+			->select('token, created_at')
 			->orderBy('created_at', 'DESC')
 			->get(1, 0);
 
