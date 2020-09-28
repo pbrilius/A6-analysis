@@ -93,3 +93,39 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 ## Running CodeIgniter Tests
 
 Information on running the CodeIgniter test suite can be found in the [README.md](tests/README.md) file in the tests directory.
+
+## Installation and running mode
+
+I suppose standard **composer** and **webpack** set - 
+```shell
+composer install
+npm install
+npx webpack
+mkdir writable/cache
+php spark serve
+```
+
+The usual set up consists of:
+```shell
+php spark routes
+```
+
+MySQL shell:
+
+```mysql
+create database audiA6;
+create user audiA6@localhost identified by 'BKWZjdIT6sbhbR45';
+grant all on audiA6.* to audiA6@localhost;
+\q
+```
+
+Console shell:
+```shell
+php artisan migrate
+cp -v env .env
+```
+
+Add Spotify **Client ID**, **Client Secret** and **Spotify PLayList ID** to .env, then reload PHP server and get to the dashboard http://localhost:8080/dashboard.
+
+
+```
