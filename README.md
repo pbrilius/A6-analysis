@@ -99,7 +99,9 @@ Information on running the CodeIgniter test suite can be found in the [README.md
 I suppose standard **composer** and **webpack** set - 
 ```shell
 composer install
-npm require -g webpack
 npm install
-npx run dev
+npx webpack
+mkdir writable/cache
+php spark serve
+```
 ```
