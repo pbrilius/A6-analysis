@@ -1,3 +1,4 @@
+
 <?php
 
 namespace A6\Commands;
