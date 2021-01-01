@@ -121,7 +121,7 @@ grant all on audiA6.* to audiA6@localhost;
 
 Console shell:
 ```shell
-php artisan migrate
+php spark migrate
 cp -v env .env
 ```
 
