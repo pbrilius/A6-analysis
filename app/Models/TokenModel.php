@@ -10,7 +10,7 @@ class TokenModel extends Model
 	protected $primaryKey = 'id';
 
 	protected $allowedFields = [
-		'access'
+		'token'
 	];
 	protected $returnType    = 'A6\Entities\Token';
 	protected $useTimestamps = true;

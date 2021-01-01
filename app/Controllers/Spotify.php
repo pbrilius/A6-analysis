@@ -94,7 +94,7 @@ class Spotify extends BaseController
 		}
 
 		$token         = new Token();
-		$token->access = $accessToken;
+		$token->token = $accessToken;
 
 		$this->tokenModel->save($token);
 
