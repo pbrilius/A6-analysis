@@ -82,7 +82,7 @@ class AccessCommand extends BaseCommand
 			->orderBy('created_at', 'DESC')
 			->get(1, 0);
 
-		$accessToken = $query->getResult()[0]->access;
+		$accessToken = $query->getResult()[0]->token;
 
 		CLI::write('Access token: ' . CLI::color($accessToken, 'light_green'));
 		log_message('info', 'Access token {accessToken}', ['accessToken' => $accessToken]);
